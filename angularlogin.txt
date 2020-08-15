@@ -1,0 +1,113 @@
+loginpage.component.html
+------------------------
+<body>
+<h2 style="text-align: center;">Login Form</h2>
+<form (ngSubmit)="login()" method="post">
+  <div class="imgcontainer">
+    <img src="https://www.pavilionweb.com/wp-content/uploads/2017/03/man-300x300.png" alt="Avatar" class="avatar">
+  </div>
+
+  <div class="container">
+    <label for="uname"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="uname" [(ngModel)]="logindata.uname" required>
+    <!-- <p style="color:red;">{{ errormsg.uname }}</p> -->
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw" [(ngModel)]="logindata.psw" required>
+    <!-- <p style="color:red;">{{ errormsg.psw }}</p> -->
+        
+    <button type="submit">Login</button>
+  </div>
+</form>
+</body>
+================================================================
+loginpage.components.ts
+-----------------------
+import { Component, OnInit } from '@angular/core';
+import {AllapiService} from '../allapi.service';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'app-loginpage',
+  templateUrl: './loginpage.component.html',
+  styleUrls: ['./loginpage.component.css']
+})
+export class LoginpageComponent implements OnInit {
+  logindata:any={};
+ 
+  constructor(private AllapiService:AllapiService, public router:Router ) { }
+
+  // --------------------------------post api
+  login(){
+   // console.log(this.logindata.uname);
+   // console.log(this.logindata.psw);
+    
+          //let data ={ }
+          this.AllapiService.postApi('/login',this.logindata).subscribe((res)=>{
+            //console.log(res);
+            if(res.responseCode == 200)
+            {
+              this.router.navigate(['/home']);
+            }
+          })
+   
+}
+// --------------------------------
+  ngOnInit() {
+  }
+}
+=================================================================================
+allapi.service.ts
+-----------------
+import { Injectable } from '@angular/core';
+ import { Observable } from 'rxjs';
+ import { HttpClient } from '@angular/common/http';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AllapiService {
+// private https:HttpClient
+  constructor(public https:HttpClient) { }
+  public base_url = "http://localhost:2000/users";
+
+  
+// ---------------------post Api Service-------------
+postApi(url,data): Observable <any>{
+  console.log(data);
+return this.https.post(this.base_url + url,data);
+}
+// --------------------------------------------------- this is frontend apiosekrvice
+
+}
+=========================================================================
+app.module.ts
+------------
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { LoginpageComponent } from './loginpage/loginpage.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http'; // form module and httpclientmodule import is imp
+@NgModule({
+  declarations: [
+    AppComponent,
+    LoginpageComponent,
+    HomeComponent,
+    
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
+})
+export class AppModule { }
+======================================================================
+
