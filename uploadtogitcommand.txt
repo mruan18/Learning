@@ -1,0 +1,33 @@
+--------------------How to Upload Code on Github For First-----------------
+1) open Github Account
+2) Create Repository Abc
+	-> Create Branch of that repository like xyz
+3) Download Git
+4) Go On that Folder which You want to upload and Open it in Command Prompt
+
+====================Command Prompt (command)=====================
+-> git
+-> git init
+-> git remote add origin https:blah blah	#[http location of xyz brance from github you get from download zip]
+-> git add .
+-> git checkout -b branchname
+-> git commit -m "Your Message"
+-> git push origin branchname --force
+===================================================================
+
+======================Change Or Not===========================
+-> git status
+	if change again update
+-> git add .
+-> git commit -m "Your Second Commit
+-> git push origin branchname --force
+	you can check log
+-> git log
+=========================================================================
+
+===================================Backup===============================
+-> git clone -b branchname locationame	#[http location of xyz brance from github]
+	if u want to backup angular project ..after backup pls run this command
+-> npm install
+	using this command you will get node_moduls
+
