@@ -32,3 +32,26 @@
 -> npm install
 	using this command you will get node_moduls
 
+=====================================Add On second Account=========================
+Remove All origin Command 
+-> git remove Origin
+
+First check all origin
+-> git remote
+
+create new origin
+-> git remote add origin1 http url
+-> git checkout -b branchname 
+-> git add .
+-> git commit -m "msg"
+-> git push origin1 branchname 
+	(asking for username password)
+-> git push origin1 branchname --force
+
+Note: if possible go on that branch then run this command
+-> git add .
+
+for initalization 
+-> git init
+
+
